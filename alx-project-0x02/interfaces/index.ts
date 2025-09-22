@@ -40,8 +40,10 @@ export interface ButtonProps {
   className?: string;
 }
 
+// Reusable Card component props
 export interface CardProps {
-  children: React.ReactNode;
+  title: string;
+  content: string;
   className?: string;
 }
 
