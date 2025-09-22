@@ -1,4 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Next.js Project Setup and Basics
+
+## Introduction
+
+This repository contains a comprehensive Next.js application built with TypeScript and Tailwind CSS. The project demonstrates modern web development practices including component-based architecture, API integration, and responsive design.
+
+The application showcases:
+
+- Next.js with Pages Router for routing
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Reusable React components
+- API integration with JSONPlaceholder
+- Responsive design patterns
+
+This project serves as a foundation for learning Next.js fundamentals and building scalable web applications.
 
 ## Getting Started
 
@@ -23,6 +38,8 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Project Structure
 
 ## Learn More
 
