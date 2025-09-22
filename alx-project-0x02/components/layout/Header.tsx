@@ -12,7 +12,10 @@ const Header = () => {
           </div>
           <ul className="flex space-x-6">
             <li>
-              <Link href="/" className="hover:text-blue-200 transition-colors">
+              <Link
+                href="/home"
+                className="hover:text-blue-200 transition-colors"
+              >
                 Home
               </Link>
             </li>
