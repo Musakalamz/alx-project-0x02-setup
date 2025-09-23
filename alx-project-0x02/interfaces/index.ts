@@ -31,6 +31,13 @@ export interface Post {
   body: string;
 }
 
+// PostProps interface for PostCard component
+export interface PostProps {
+  title: string;
+  content: string;
+  userId: number;
+}
+
 // New Post interface for user-created posts
 export interface NewPost {
   id: number;
