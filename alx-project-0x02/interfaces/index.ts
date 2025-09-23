@@ -44,8 +44,11 @@ export interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: "primary" | "secondary" | "danger";
+  size?: "small" | "medium" | "large";
+  shape?: "rounded-sm" | "rounded-md" | "rounded-full";
   disabled?: boolean;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 // Reusable Card component props
