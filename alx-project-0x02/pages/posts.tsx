@@ -1,37 +1,15 @@
-import { useState, useEffect } from "react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import Header from "@/components/layout/Header";
 import PostCard from "@/components/common/PostCard";
 import { type Post } from "../interfaces";
 
-export default function Posts() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface PostsPageProps {
+  posts: Post[];
+  error?: string;
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts');
-        }
-        
-        const data: Post[] = await response.json();
-        // Limit to first 12 posts for better display
-        setPosts(data.slice(0, 12));
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
+export default function Posts({ posts, error }: PostsPageProps) {
   return (
     <>
       <Head>
@@ -53,13 +31,6 @@ export default function Posts() {
             </p>
           </div>
 
-          {loading && (
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-gray-600">Loading posts...</p>
-            </div>
-          )}
-
           {error && (
             <div className="text-center">
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto">
@@ -69,7 +40,7 @@ export default function Posts() {
             </div>
           )}
 
-          {!loading && !error && posts.length > 0 && (
+          {!error && posts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
               {posts.map((post) => (
                 <PostCard
@@ -82,7 +53,7 @@ export default function Posts() {
             </div>
           )}
 
-          {!loading && !error && posts.length === 0 && (
+          {!error && posts.length === 0 && (
             <div className="text-center">
               <p className="text-gray-600">No posts found.</p>
             </div>
@@ -92,3 +63,36 @@ export default function Posts() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<PostsPageProps> = async () => {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+
+    const data: Post[] = await response.json();
+    // Limit to first 12 posts for better display
+    const posts = data.slice(0, 12);
+
+    return {
+      props: {
+        posts,
+      },
+      // Revalidate every hour (3600 seconds)
+      revalidate: 3600,
+    };
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+
+    return {
+      props: {
+        posts: [],
+        error: error instanceof Error ? error.message : "Failed to fetch posts",
+      },
+      // Retry after 60 seconds if there's an error
+      revalidate: 60,
+    };
+  }
+};
