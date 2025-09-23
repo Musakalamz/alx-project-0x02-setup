@@ -68,9 +68,10 @@ export default function Users({ users, error }: UsersPageProps) {
   );
 }
 
-// Data fetching function for server-side rendering
+// Next.js getStaticProps function for server-side data fetching
 export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
   try {
+    // Fetch users data from JSONPlaceholder API
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
 
     if (!response.ok) {
@@ -83,7 +84,7 @@ export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
       props: {
         users,
       },
-      // Revalidate every hour (3600 seconds)
+      // Revalidate every hour (3600 seconds) for ISR
       revalidate: 3600,
     };
   } catch (error) {
