@@ -68,6 +68,7 @@ export default function Users({ users, error }: UsersPageProps) {
   );
 }
 
+// Data fetching function for server-side rendering
 export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
