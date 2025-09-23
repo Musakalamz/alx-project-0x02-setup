@@ -23,6 +23,24 @@ export interface User {
   };
 }
 
+// UserProps interface for UserCard component
+export interface UserProps {
+  name: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
+  phone?: string;
+  website?: string;
+  company?: {
+    name: string;
+    catchPhrase: string;
+  };
+}
+
 // Post interface for API data
 export interface Post {
   userId: number;
