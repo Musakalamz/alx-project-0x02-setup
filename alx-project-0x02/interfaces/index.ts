@@ -31,6 +31,14 @@ export interface Post {
   body: string;
 }
 
+// New Post interface for user-created posts
+export interface NewPost {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
 // Props interfaces for components
 export interface ButtonProps {
   children: React.ReactNode;
@@ -56,8 +64,15 @@ export interface UserCardProps {
   user: User;
 }
 
+// Updated PostModal props for creating new posts
 export interface PostModalProps {
-  post: Post | null;
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (post: { title: string; content: string }) => void;
+}
+
+// Form data interface
+export interface PostFormData {
+  title: string;
+  content: string;
 }
