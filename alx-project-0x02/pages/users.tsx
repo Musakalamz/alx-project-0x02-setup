@@ -69,9 +69,10 @@ export default function Users({ users, error }: UsersPageProps) {
 }
 
 // Next.js getStaticProps function for server-side data fetching
-export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
+
+
+export async function getStaticProps() {
   try {
-    // Fetch users data from JSONPlaceholder API
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
 
     if (!response.ok) {
@@ -81,10 +82,7 @@ export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
     const users: User[] = await response.json();
 
     return {
-      props: {
-        users,
-      },
-      // Revalidate every hour (3600 seconds) for ISR
+      props: { users },
       revalidate: 3600,
     };
   } catch (error) {
@@ -95,8 +93,9 @@ export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
         users: [],
         error: error instanceof Error ? error.message : "Failed to fetch users",
       },
-      // Retry after 60 seconds if there's an error
       revalidate: 60,
     };
   }
-};
+}
+
+
